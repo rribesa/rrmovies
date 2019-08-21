@@ -4,9 +4,10 @@
         xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".genre.fragment.CategoryListFragment">
+        tools:context=".genre.ui.fragment.GenreListFragment">
 
     <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/genre_loading_animation"
             tools:visibility="gone"
             android:visibility="visible"
             android:layout_width="wrap_content"
@@ -20,6 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/genre_recycle_list"
             tools:visibility="visible"
             android:visibility="gone"
             android:layout_width="0dp"

@@ -13,13 +13,13 @@ const val PAGE = "page"
 const val PAGE_VALUE = 1
 
 interface Service {
-    @GET("/list?")
+    @GET("genre/movie/list")
     suspend fun getGenres(
         @Query(APIKEY) apiKey: String = APIKEY_VALUE,
         @Query(LANGUAGE) language: String = LANGUAGE_VALUE
     ): Genres
 
-    @GET("/upcoming?")
+    @GET("movie/upcoming?")
     suspend fun getMovies(
         @Query(APIKEY) apiKey: String = APIKEY_VALUE,
         @Query(LANGUAGE) language: String = LANGUAGE_VALUE,

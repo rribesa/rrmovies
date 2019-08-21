@@ -51,19 +51,19 @@ class GenreListFragment : Fragment() {
     private fun initViewModel() {
         viewModel.viewState.observe(this, Observer {
             when (it) {
-                is GenreViewState.GenreProgressBarVisibility -> animation.visibility = it.visibility
+                is GenreViewState.GenreProgressBarVisible -> animation.visibility = it.visibility
                 is GenreViewState.GenreListLoaded -> fillList(it.genres)
                 is GenreViewState.GenreError -> navigateError(it.error)
-                is GenreViewState.GenreClick -> navigateGenre(it.genre)
+                is GenreViewState.GenreProgressBarGone -> animation.visibility = it.visibility
             }
         })
-        viewModel.bind()
+        viewModel.init()
     }
 
     private fun fillList(genres: Genres) {
         Log.d("SUCESSO_GENRELIST", "###### sucesso #####" + genres.toString())
         genreRecycleList.layoutManager = LinearLayoutManager(this.context)
-        genreRecycleList.adapter = GenresAdapter(genres, viewModel)
+        genreRecycleList.adapter = GenresAdapter(genres)
         genreRecycleList.visibility = View.VISIBLE
         genreRecycleList.addItemDecoration(
             DividerItemDecoration(

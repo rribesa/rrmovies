@@ -8,16 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.rrs.rrmovies.R
 import br.com.rrs.rrmovies.genre.model.Genre
 import br.com.rrs.rrmovies.genre.model.Genres
-import br.com.rrs.rrmovies.genre.viewmodel.GenreViewModel
 
 class GenresAdapter(
-    private val genres: Genres,
-    private val viewModel: GenreViewModel
+    private val genres: Genres
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.category_list_item, parent, false)
-        return GenresViewHolder(view, viewModel)
+        return GenresViewHolder(view)
     }
 
     override fun getItemCount() = genres.genres.size
@@ -28,18 +26,12 @@ class GenresAdapter(
 }
 
 class GenresViewHolder(
-    itemView: View,
-    val viewModel: GenreViewModel
+    itemView: View
 ) : RecyclerView.ViewHolder(itemView) {
     fun bindGenre(genre: Genre) {
         val idView: TextView = itemView.findViewById(R.id.category_list_genre_id)
         idView.text = genre.id.toString()
         val genreNameView: TextView = itemView.findViewById(R.id.category_list_genre_name)
         genreNameView.text = genre.name
-        itemView.setOnClickListener { clickGenre(genre) }
-    }
-
-    fun clickGenre(genre: Genre) {
-        viewModel.clickGenre(genre)
     }
 }

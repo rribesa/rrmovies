@@ -1,4 +1,4 @@
-package br.com.rrs.rrmovies.genre.viewmodel.viewState
+package br.com.rrs.rrmovies.genre.viewmodel.viewstate
 
 import br.com.rrs.rrmovies.genre.model.Genres
 

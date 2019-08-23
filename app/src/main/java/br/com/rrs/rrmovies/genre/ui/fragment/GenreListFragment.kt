@@ -20,7 +20,7 @@ import br.com.rrs.rrmovies.genre.repository.GenreRepository
 import br.com.rrs.rrmovies.genre.ui.adapter.GenresAdapter
 import br.com.rrs.rrmovies.genre.viewmodel.GenreViewModel
 import br.com.rrs.rrmovies.genre.viewmodel.GenreViewModelFactory
-import br.com.rrs.rrmovies.genre.viewmodel.viewState.GenreViewState
+import br.com.rrs.rrmovies.genre.viewmodel.viewstate.GenreViewState
 import com.airbnb.lottie.LottieAnimationView
 
 class GenreListFragment : Fragment() {

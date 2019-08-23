@@ -16,12 +16,12 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
     val viewState: LiveData<MovieViewState> = state
 
     fun init() {
+        state.value = MovieViewState.MovieProgressBarVisible(View.VISIBLE)
         viewModelScope.launch(Dispatchers.Main) {
-            state.value = MovieViewState.MovieProgressBarVisible(View.VISIBLE)
             withContext(Dispatchers.IO) {
                 try {
                     state.postValue((MovieViewState.MovieListLoaded(repository.getMovieListAsync().await())))
-                } catch (error: Exception) {
+                } catch (error: Throwable) {
                     error.printStackTrace()
                     state.postValue(MovieViewState.MovieError(error.message.toString()))
                 } finally {

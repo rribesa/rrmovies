@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/navigation_movie"
+            app:startDestination="@id/movieListFragment">
+
+    <fragment android:id="@+id/movieListFragment" android:name="br.com.rrs.rrmovies.movie.fragment.MovieListFragment"
+              android:label="fragment_movie" tools:layout="@layout/fragment_movie">
+        <action android:id="@+id/action_movieListFragment_to_movieDetailFragment"
+                app:destination="@id/movieDetailFragment"/>
+        <action android:id="@+id/action_movieListFragment_to_movieErrorFragment"
+                app:destination="@id/movieErrorFragment"/>
+    </fragment>
+    <fragment android:id="@+id/movieErrorFragment" android:name="br.com.rrs.rrmovies.MovieErrorFragment"
+              android:label="fragment_movie_error" tools:layout="@layout/fragment_movie_error"/>
+    <fragment android:id="@+id/movieDetailFragment" android:name="br.com.rrs.rrmovies.MovieDetailFragment"
+              android:label="fragment_movie_detail" tools:layout="@layout/fragment_movie_detail"/>
+</navigation>

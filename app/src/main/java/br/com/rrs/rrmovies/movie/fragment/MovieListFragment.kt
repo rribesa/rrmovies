@@ -9,18 +9,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rrs.rrmovies.R
 import br.com.rrs.rrmovies.Service
 import br.com.rrs.rrmovies.WebClient
 import br.com.rrs.rrmovies.movie.model.Movies
+import br.com.rrs.rrmovies.movie.model.Result
 import br.com.rrs.rrmovies.movie.repository.MovieRepository
 import br.com.rrs.rrmovies.movie.ui.adapter.MoviesAdapter
 import br.com.rrs.rrmovies.movie.viewmodel.MovieViewModel
 import br.com.rrs.rrmovies.movie.viewmodel.MovieViewModelFactory
 import br.com.rrs.rrmovies.movie.viewmodel.viewstate.MovieViewState
 import com.airbnb.lottie.LottieAnimationView
+
 
 class MovieListFragment : Fragment() {
 
@@ -49,7 +52,7 @@ class MovieListFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        viewModel.viewState.observe(this, Observer {
+        viewModel.viewState.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is MovieViewState.MovieProgressBarVisible -> animation.visibility = it.visibility
                 is MovieViewState.MovieListLoaded -> fillList(it.movies)
@@ -61,16 +64,20 @@ class MovieListFragment : Fragment() {
     }
 
     private fun fillList(movies: Movies) {
-        Log.d("SUCESSO_GENRELIST", "###### sucesso #####" + movies.toString())
         movieRecycleList.layoutManager = GridLayoutManager(this.context, 2)
         movieRecycleList.adapter = MoviesAdapter(movies)
         movieRecycleList.visibility = View.VISIBLE
-
-
     }
 
     private fun navigateError(error: String) {
-        Log.d("ERROR_MOVIELIST", "###### error #####" + error)
+        Log.d("passou", error)
+        findNavController().navigate(R.id.action_movieListFragment_to_movieErrorFragment)
+    }
+
+    private fun navigateMovie(movie: Result) {
+        Log.d("passou", movie.toString())
+
+        findNavController().navigate(R.id.action_movieListFragment_to_movieDetailFragment)
     }
 
     override fun onCreateView(
@@ -78,11 +85,5 @@ class MovieListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_movie, container, false)
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            MovieListFragment()
     }
 }

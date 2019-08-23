@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.rrs.rrmovies.movie.model.Result
 import br.com.rrs.rrmovies.movie.repository.MovieRepository
 import br.com.rrs.rrmovies.movie.viewmodel.viewstate.MovieViewState
 import kotlinx.coroutines.Dispatchers
@@ -29,5 +30,10 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
                 }
             }
         }
+    }
+
+    fun clickMovie(movie: Result) {
+        state.postValue(MovieViewState.MovieClicked(movie))
+
     }
 }

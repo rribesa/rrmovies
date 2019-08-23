@@ -52,12 +52,15 @@ class MovieListFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        viewModel.viewState.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                is MovieViewState.MovieProgressBarVisible -> animation.visibility = it.visibility
-                is MovieViewState.MovieListLoaded -> fillList(it.movies)
-                is MovieViewState.MovieError -> navigateError(it.error)
-                is MovieViewState.MovieProgressBarGone -> animation.visibility = it.visibility
+        viewModel.viewState.observe(viewLifecycleOwner, Observer { movieState ->
+            movieState?.let {
+                when (it) {
+                    is MovieViewState.MovieProgressBarVisible -> animation.visibility = it.visibility
+                    is MovieViewState.MovieListLoaded -> fillList(it.movies)
+                    is MovieViewState.MovieError -> navigateError(it.error)
+                    is MovieViewState.MovieProgressBarGone -> animation.visibility = it.visibility
+                    is MovieViewState.MovieClicked -> navigateMovie(it.movie)
+                }
             }
         })
         viewModel.init()
@@ -65,7 +68,7 @@ class MovieListFragment : Fragment() {
 
     private fun fillList(movies: Movies) {
         movieRecycleList.layoutManager = GridLayoutManager(this.context, 2)
-        movieRecycleList.adapter = MoviesAdapter(movies)
+        movieRecycleList.adapter = MoviesAdapter(movies, viewModel)
         movieRecycleList.visibility = View.VISIBLE
     }
 
@@ -76,8 +79,9 @@ class MovieListFragment : Fragment() {
 
     private fun navigateMovie(movie: Result) {
         Log.d("passou", movie.toString())
-
-        findNavController().navigate(R.id.action_movieListFragment_to_movieDetailFragment)
+        val movieArgs = movie
+        val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(movieArgs)
+        findNavController().navigate(action)
     }
 
     override fun onCreateView(

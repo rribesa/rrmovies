@@ -77,8 +77,7 @@ class MovieListFragment : Fragment() {
     }
 
     private fun navigateMovie(movie: Movie) {
-        val movieArgs = movie
-        val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(movieArgs)
+        val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(movie)
         findNavController().navigate(action)
     }
 

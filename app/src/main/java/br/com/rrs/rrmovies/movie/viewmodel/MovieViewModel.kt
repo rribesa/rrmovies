@@ -11,7 +11,6 @@ import br.com.rrs.rrmovies.movie.viewmodel.viewstate.MovieViewState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.IOException
 
 class MovieViewModel(private val useCase: MovieUseCase) : ViewModel() {
     private val state: MutableLiveData<MovieViewState> = MutableLiveData()
@@ -23,7 +22,7 @@ class MovieViewModel(private val useCase: MovieUseCase) : ViewModel() {
             withContext(Dispatchers.IO) {
                 try {
                     state.postValue((MovieViewState.MovieListLoaded(useCase.getMovies())))
-                } catch (error: IOException) {
+                } catch (error: Exception) {
                     error.printStackTrace()
                     state.postValue(MovieViewState.MovieError(error.message.toString()))
                 } finally {

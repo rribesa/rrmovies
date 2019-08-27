@@ -1,8 +1,6 @@
 package br.com.rrs.rrmovies.movie.fragment
 
-
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,15 +13,14 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.rrs.rrmovies.R
 import br.com.rrs.rrmovies.Service
 import br.com.rrs.rrmovies.WebClient
-import br.com.rrs.rrmovies.movie.model.Movies
-import br.com.rrs.rrmovies.movie.model.Result
+import br.com.rrs.rrmovies.movie.MovieUseCase
+import br.com.rrs.rrmovies.movie.adapter.MoviesAdapter
+import br.com.rrs.rrmovies.movie.model.Movie
 import br.com.rrs.rrmovies.movie.repository.MovieRepository
-import br.com.rrs.rrmovies.movie.ui.adapter.MoviesAdapter
 import br.com.rrs.rrmovies.movie.viewmodel.MovieViewModel
 import br.com.rrs.rrmovies.movie.viewmodel.MovieViewModelFactory
 import br.com.rrs.rrmovies.movie.viewmodel.viewstate.MovieViewState
 import com.airbnb.lottie.LottieAnimationView
-
 
 class MovieListFragment : Fragment() {
 
@@ -33,12 +30,14 @@ class MovieListFragment : Fragment() {
     lateinit var viewModel: MovieViewModel
     lateinit var animation: LottieAnimationView
     lateinit var movieRecycleList: RecyclerView
+    lateinit var usecase: MovieUseCase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         webClient = WebClient().service()
         repository = MovieRepository(webClient)
-        factory = MovieViewModelFactory(repository)
+        usecase = MovieUseCase(repository)
+        factory = MovieViewModelFactory(usecase)
         viewModel = ViewModelProviders.of(this, factory).get(
             MovieViewModel::class.java
         )
@@ -66,19 +65,18 @@ class MovieListFragment : Fragment() {
         viewModel.init()
     }
 
-    private fun fillList(movies: Movies) {
+    private fun fillList(movies: MutableList<Movie>) {
         movieRecycleList.layoutManager = GridLayoutManager(this.context, 2)
         movieRecycleList.adapter = MoviesAdapter(movies, viewModel)
         movieRecycleList.visibility = View.VISIBLE
     }
 
     private fun navigateError(error: String) {
-        Log.d("passou", error)
+        println("error$error")
         findNavController().navigate(R.id.action_movieListFragment_to_movieErrorFragment)
     }
 
-    private fun navigateMovie(movie: Result) {
-        Log.d("passou", movie.toString())
+    private fun navigateMovie(movie: Movie) {
         val movieArgs = movie
         val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(movieArgs)
         findNavController().navigate(action)

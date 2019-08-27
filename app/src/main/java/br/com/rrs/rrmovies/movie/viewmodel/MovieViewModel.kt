@@ -5,14 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.rrs.rrmovies.movie.model.Result
-import br.com.rrs.rrmovies.movie.repository.MovieRepository
+import br.com.rrs.rrmovies.movie.MovieUseCase
+import br.com.rrs.rrmovies.movie.model.Movie
 import br.com.rrs.rrmovies.movie.viewmodel.viewstate.MovieViewState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.IOException
 
-class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
+class MovieViewModel(private val useCase: MovieUseCase) : ViewModel() {
     private val state: MutableLiveData<MovieViewState> = MutableLiveData()
     val viewState: LiveData<MovieViewState> = state
 
@@ -21,8 +22,8 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
         viewModelScope.launch(Dispatchers.Main) {
             withContext(Dispatchers.IO) {
                 try {
-                    state.postValue((MovieViewState.MovieListLoaded(repository.getMovieListAsync().await())))
-                } catch (error: Throwable) {
+                    state.postValue((MovieViewState.MovieListLoaded(useCase.getMovies())))
+                } catch (error: IOException) {
                     error.printStackTrace()
                     state.postValue(MovieViewState.MovieError(error.message.toString()))
                 } finally {
@@ -32,8 +33,7 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
         }
     }
 
-    fun clickMovie(movie: Result) {
+    fun clickMovie(movie: Movie) {
         state.postValue(MovieViewState.MovieClicked(movie))
-
     }
 }

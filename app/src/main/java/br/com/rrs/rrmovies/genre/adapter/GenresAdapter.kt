@@ -1,4 +1,4 @@
-package br.com.rrs.rrmovies.genre.ui.adapter
+package br.com.rrs.rrmovies.genre.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,10 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rrs.rrmovies.R
 import br.com.rrs.rrmovies.genre.model.Genre
-import br.com.rrs.rrmovies.genre.model.Genres
 
 class GenresAdapter(
-    private val genres: Genres
+    private val genres: List<Genre>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -18,10 +17,10 @@ class GenresAdapter(
         return GenresViewHolder(view)
     }
 
-    override fun getItemCount() = genres.genres.size
+    override fun getItemCount() = genres.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as GenresViewHolder).bindGenre(genres.genres[position])
+        (holder as GenresViewHolder).bindGenre(genres[position])
     }
 }
 

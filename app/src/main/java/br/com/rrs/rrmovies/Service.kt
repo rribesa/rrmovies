@@ -1,7 +1,7 @@
 package br.com.rrs.rrmovies
 
-import br.com.rrs.rrmovies.genre.model.Genres
-import br.com.rrs.rrmovies.movie.model.Movies
+import br.com.rrs.rrmovies.genre.response.Genres
+import br.com.rrs.rrmovies.movie.response.Movies
 import retrofit2.http.GET
 import retrofit2.http.Query
 

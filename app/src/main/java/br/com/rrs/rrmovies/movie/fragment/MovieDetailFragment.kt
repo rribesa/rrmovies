@@ -1,4 +1,4 @@
-package br.com.rrs.rrmovies
+package br.com.rrs.rrmovies.movie.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,12 +8,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import br.com.rrs.rrmovies.movie.model.Result
+import br.com.rrs.rrmovies.R
+import br.com.rrs.rrmovies.movie.model.Movie
 import com.squareup.picasso.Picasso
 
-private const val MOVIE = "movie"
 class MovieDetailFragment : Fragment() {
-    private var movie: Result? = null
+    private var movie: Movie? = null
     private lateinit var imageView: ImageView
     private lateinit var titleMovie: TextView
     private lateinit var dateMovie: TextView
@@ -23,15 +23,13 @@ class MovieDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val safeArgs: MovieDetailFragmentArgs by navArgs()
-        movie = safeArgs.movie
         return inflater.inflate(R.layout.fragment_movie_detail, container, false)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
+        val safeArgs: MovieDetailFragmentArgs by navArgs()
+        movie = safeArgs.movie
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,19 +47,8 @@ class MovieDetailFragment : Fragment() {
             dateMovie.text = it.release_date
             sinopseMovie.text = it.overview
             Picasso.with(this.context)
-                .load(br.com.rrs.rrmovies.movie.ui.adapter.BASE_URL + it.poster_path)
+                .load(br.com.rrs.rrmovies.movie.adapter.BASE_URL + it.backdrop_path)
                 .into(imageView)
         }
     }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(movie: Result) =
-            MovieDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(MOVIE, movie)
-                }
-            }
-    }
-
 }

@@ -11,10 +11,11 @@
         <action android:id="@+id/action_movieListFragment_to_movieErrorFragment"
                 app:destination="@id/movieErrorFragment" app:popUpTo="@+id/movieListFragment"/>
     </fragment>
-    <fragment android:id="@+id/movieErrorFragment" android:name="br.com.rrs.rrmovies.MovieErrorFragment"
+    <fragment android:id="@+id/movieErrorFragment" android:name="br.com.rrs.rrmovies.movie.fragment.MovieErrorFragment"
               android:label="fragment_movie_error" tools:layout="@layout/fragment_movie_error"/>
-    <fragment android:id="@+id/movieDetailFragment" android:name="br.com.rrs.rrmovies.MovieDetailFragment"
+    <fragment android:id="@+id/movieDetailFragment"
+              android:name="br.com.rrs.rrmovies.movie.fragment.MovieDetailFragment"
               android:label="fragment_movie_detail" tools:layout="@layout/fragment_movie_detail">
-        <argument android:name="movie" app:argType="br.com.rrs.rrmovies.movie.model.Result"/>
+        <argument android:name="movie" app:argType="br.com.rrs.rrmovies.movie.model.Movie"/>
     </fragment>
 </navigation>

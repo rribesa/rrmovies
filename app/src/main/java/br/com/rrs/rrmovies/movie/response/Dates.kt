@@ -1,4 +1,4 @@
-package br.com.rrs.rrmovies.movie.model
+package br.com.rrs.rrmovies.movie.response
 
 data class Dates(
     val maximum: String,

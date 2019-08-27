@@ -1,4 +1,4 @@
-package br.com.rrs.rrmovies.movie.model
+package br.com.rrs.rrmovies.movie.response
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

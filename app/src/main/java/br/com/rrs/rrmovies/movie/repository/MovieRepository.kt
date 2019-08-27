@@ -1,12 +1,11 @@
 package br.com.rrs.rrmovies.movie.repository
 
 import br.com.rrs.rrmovies.Service
-import br.com.rrs.rrmovies.movie.model.Movies
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class MovieRepository(private val service: Service) {
-    private val job = SupervisorJob()
-    private val scope = CoroutineScope(Dispatchers.Default + job)
 
-    fun getMovieListAsync(): Deferred<Movies> = scope.async { service.getMovies() }
+    suspend fun getMovieList() = withContext(Dispatchers.IO) { service.getMovies() }
+    suspend fun getGenres() = withContext(Dispatchers.IO) { service.getGenres() }
 }

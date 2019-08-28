@@ -18,7 +18,7 @@ class MovieViewModel(private val useCase: MovieUseCase) : ViewModel() {
 
     fun init() {
         state.value = MovieViewState.MovieProgressBarVisible(View.VISIBLE)
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
                     state.postValue((MovieViewState.MovieListLoaded(useCase.getMovies())))

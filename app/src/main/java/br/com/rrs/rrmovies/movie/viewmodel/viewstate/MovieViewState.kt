@@ -4,7 +4,7 @@ import br.com.rrs.rrmovies.movie.model.Movie
 
 sealed class MovieViewState {
     data class MovieProgressBarVisible(val visibility: Int) : MovieViewState()
-    data class MovieListLoaded(val movies: MutableList<Movie>) : MovieViewState()
+    data class MovieListLoaded(val movies: List<Movie>) : MovieViewState()
     data class MovieError(val error: String) : MovieViewState()
     data class MovieProgressBarGone(val visibility: Int) : MovieViewState()
     data class MovieClicked(val movie: Movie) : MovieViewState()

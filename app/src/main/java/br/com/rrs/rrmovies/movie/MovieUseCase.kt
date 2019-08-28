@@ -6,7 +6,7 @@ import br.com.rrs.rrmovies.movie.repository.MovieRepository
 
 class MovieUseCase(private val repository: MovieRepository) {
 
-    suspend fun getMovies(): MutableList<Movie> {
+    suspend fun getMovies(): List<Movie> {
         val genre = repository.getGenres().genres
         val result = repository.getMovieList().results
         val movies = ArrayList<Movie>()
@@ -26,7 +26,7 @@ class MovieUseCase(private val repository: MovieRepository) {
         return movies
     }
 
-    private fun getGenresName(ids: List<Int>, genre: List<Genre>): MutableList<Genre> {
+    private fun getGenresName(ids: List<Int>, genre: List<Genre>): List<Genre> {
         val movieGenre = ArrayList<Genre>()
         ids.forEach { genreId ->
             movieGenre.addAll(genre.filter { genre -> genreId == genre.id })

@@ -26,12 +26,6 @@ class MovieDetailFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_movie_detail, container, false)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val safeArgs: MovieDetailFragmentArgs by navArgs()
-        movie = safeArgs.movie
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         imageView = view.findViewById(R.id.movie_detail_image)
@@ -42,6 +36,8 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun updateUI() {
+        val safeArgs: MovieDetailFragmentArgs by navArgs()
+        movie = safeArgs.movie
         movie?.let {
             titleMovie.text = it.title
             dateMovie.text = it.release_date

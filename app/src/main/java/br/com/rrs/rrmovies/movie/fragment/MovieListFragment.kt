@@ -65,7 +65,7 @@ class MovieListFragment : Fragment() {
         viewModel.init()
     }
 
-    private fun fillList(movies: MutableList<Movie>) {
+    private fun fillList(movies: List<Movie>) {
         movieRecycleList.layoutManager = GridLayoutManager(this.context, 2)
         movieRecycleList.adapter = MoviesAdapter(movies, viewModel)
         movieRecycleList.visibility = View.VISIBLE

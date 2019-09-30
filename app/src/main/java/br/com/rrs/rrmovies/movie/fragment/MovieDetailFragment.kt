@@ -44,6 +44,8 @@ class MovieDetailFragment : Fragment() {
             sinopseMovie.text = it.overview
             Picasso.with(this.context)
                 .load(br.com.rrs.rrmovies.movie.adapter.BASE_URL + it.backdrop_path)
+                .resize(500,500)
+                .centerCrop()
                 .into(imageView)
         }
     }

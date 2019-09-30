@@ -39,6 +39,8 @@ class MovieViewHolder(
         val imageMovie: ImageView = itemView.findViewById(R.id.movie_image)
         Picasso.with(itemView.context)
             .load(BASE_URL + movie.poster_path)
+            .resize(200,200)
+            .centerCrop()
             .into(imageMovie)
         val titleMovie: TextView = itemView.findViewById(R.id.movie_name)
         titleMovie.text = movie.title
